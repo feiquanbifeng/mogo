@@ -58,3 +58,18 @@ type OverwriteModelError struct {
 func (o *OverwriteModelError) Error() string {
     return fmt.Sprintf("OverwriteModelError: Cannot overwrite %s model once compiled.", o.Name)
 }
+
+// validator error
+type ValidatorError struct {
+    Path, Msg, Type string
+    Value interface{}
+}
+
+func (v *ValidatorError) Error() string {
+    msg := v.Msg
+    if msg == "" {
+        msg = "ValidatorError: Validator failed for path `%s` with value `%v`"
+    }
+
+    return fmt.Sprintf(msg, v.Path, v.Value)
+}
